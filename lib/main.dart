@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
 
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  double _fontSize = 40;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(),
+      home: Scaffold(
+          body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: TextField(
+                textInputAction: TextInputAction.done,
+                style: TextStyle(fontSize: _fontSize),
+                maxLines: null,
+              ),
+            ),
+            Slider(
+              value: _fontSize,
+              onChanged: (newSize) {
+                setState(() => _fontSize = newSize);
+              },
+              min: 30,
+              max: 200,
+            )
+          ],
+        ),
+      )),
     );
   }
 }
